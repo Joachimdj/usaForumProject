@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Administraton panel</title>
+        <meta name="author" content="author"></meta>
+        <h:outputStylesheet library="css" name="custom.css" />
+    </h:head>
+    <h:body style="padding-top: 10px">
+        <h:outputScript library="js" name="holder.js" />
+        <b:navBar brand="Admin panel" brandHref="#" inverse="true" fixed="top" fluid="true">
+
+
+            <h:form rendered="#{userSession.loggedIn}" styleClass="navbar-form navbar-right ">
+                <b:commandButton action="#{login.logout()}" value="Logout" look="success"/>
+            </h:form>
+
+            <b:navbarLinks pull="right">
+                <b:navLink rendered="#{userSession.loggedIn}" value="Logged in as:  #{userSession.name}" outcome="#"></b:navLink>
+            </b:navbarLinks> 
+
+        </b:navBar><!-- End of navigation -->
+
+        <b:container fluid="true">
+            <b:row>
+                <b:column col-sm="3" col-md="2" styleClass="sidebar">
+                    <b:listLinks>
+                        <b:navLink href="#" value="Overview" active="true"/>
+                        <b:navLink href="#" value="Users" />
+                        <b:navLink href="#" value="Chat rooms" />
+                    </b:listLinks>
+                </b:column>
+                <b:column col-sm="9" offset-sm="3" col-md="10" offset="2" styleClass="main">
+                    <h1>Dashboard</h1>
+                    <hr/>
+                    <b:row styleClass="placeholders">
+                        <b:column col-xs="6" col-sm="3" styleClass="placeholder">
+                            <img data-src="holder.js/200x200/sky" class="img-responsive" alt="Generic placeholder thumbnail"/>
+                            <h4>Label</h4>
+                            <span class="text-muted">Something else</span>
+                        </b:column>
+                        <b:column col-xs="6" col-sm="3" styleClass="placeholder">
+                            <img data-src="holder.js/200x200/vine" class="img-responsive" alt="Generic placeholder thumbnail"/>
+                            <h4>Label</h4>
+                            <span class="text-muted">Something else</span>
+                        </b:column>
+                        <b:column col-xs="6" col-sm="3" styleClass="placeholder">
+                            <img data-src="holder.js/200x200/sky" class="img-responsive" alt="Generic placeholder thumbnail"/>
+                            <h4>Label</h4>
+                            <span class="text-muted">Something else</span>
+                        </b:column>
+                        <b:column col-xs="6" col-sm="3" styleClass="placeholder">
+                            <img data-src="holder.js/200x200/vine" class="img-responsive" alt="Generic placeholder thumbnail"/>
+                            <h4>Label</h4>
+                            <span class="text-muted">Something else</span>
+                        </b:column>
+                    </b:row>
+                </b:column>
+            </b:row>
+        </b:container>                
+    </h:body>
+</html>

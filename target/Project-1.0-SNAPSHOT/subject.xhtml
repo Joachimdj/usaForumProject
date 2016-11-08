@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Join me - Forum</title>
+        <meta name="author" content="author"></meta>
+        <h:outputStylesheet library="css" name="custom.css" />
+    </h:head>
+    <!-- Add 50px padding top to the body for the navbar -->
+    <h:body style="padding-top: 50px; padding-bottom: 20px;">
+        
+        <b:navBar brand="Subject" inverse="true" fixed="top">
+
+            <h:form rendered="#{not userSession.loggedIn}" styleClass="navbar-form navbar-right">
+
+                <div class="form-group">
+                    <b:inputText id="username" value="#{login.user}" placeholder="Email" fieldSize="sm"/>
+                </div>
+                <div class="form-group">
+                    <b:inputText id="password" value="#{login.pwd}" placeholder="Password" type="password" fieldSize="sm"/>
+                </div> 
+                <div class="form-group">
+                    <b:commandButton action="#{login.validateUsernamePassword}" value="Login" look="success" icon="chevron-right" iconAlign="right"/>
+                </div>
+
+            </h:form>
+
+            <h:form rendered="#{userSession.loggedIn}" styleClass="navbar-form navbar-right ">
+                <b:commandButton action="#{login.logout()}" value="Logout" look="success"/>
+            </h:form>
+
+            <b:navbarLinks pull="right">
+                <b:navLink rendered="#{not userSession.loggedIn}" value="Register" outcome="signup"></b:navLink>
+                <b:navLink rendered="#{userSession.loggedIn}" value="Logged in as:  #{userSession.name}" outcome="#"></b:navLink>
+            </b:navbarLinks> 
+
+        </b:navBar> <!-- End of navigation -->
+        
+        <b:container>
+            <b:container class="subject_container"> 
+                 
+                <div><h4><h:link value="FORUM NAME" outcome="forum" /> - <h:link value="CATEGORY NAME" outcome="category" /> - <h:link value="SUBJECT NAME" outcome="subjects" /></h4></div>
+           
+                <b:jumbotron> 
+    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer...Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer...</p>
+  
+</b:jumbotron>
+                <h:dataTable value="#{message.messageList}" var="m"
+                             styleClass="table table-striped"
+                             headerClass="order-table-header"
+                             rowClasses="order-table-odd-row,order-table-even-row">
+
+                    
+
+                    <h:column>
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        <p>#{m.name} </p>
+                        <p> <b:icon name="glyphicon glyphicon-user" size="5x" /></p>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                         Comment
+                        </f:facet>
+                        #{m.messageDesc}
+                    </h:column>
+
+                     <h:column>
+                        <f:facet name="header">
+                            Function
+                        </f:facet>
+                         <b:button look="default  btn-block" value="" icon="glyphicon glyphicon-edit" outcome="subject?commentId=#{m.id}" />
+                         <b:button look="danger  btn-block" value="" icon="glyphicon glyphicon-remove" outcome="subject?commentId=#{m.id}"/>
+                    </h:column>
+
+                </h:dataTable>
+                <h:form>
+                    <input  name="messageId" hidden="true" value=""></input>
+                           <p><b>Description</b></p>
+                    <h:inputTextarea style="width: 100%;" rows="10" />
+                    <b:commandButton   look="primary btn-block" value="Create comment"  size="lg"/>
+                </h:form>
+            </b:container> <!-- End of table -->
+
+        </b:container> <!-- End of main container -->
+ 
+    </h:body>
+</html>

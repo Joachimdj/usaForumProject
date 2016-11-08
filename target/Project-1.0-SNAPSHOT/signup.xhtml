@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>
+        <title>Register</title>
+        <meta name="author" content="author"></meta>
+        <h:outputStylesheet library="css" name="custom.css" />
+    </h:head>
+    <h:body style="padding-top: 50px;">
+
+        <b:navBar brand="Join Me" inverse="true" fixed="top">
+
+            <h:form rendered="#{not userSession.loggedIn}" styleClass="navbar-form navbar-right">
+
+                <div class="form-group">
+                    <b:inputText id="username" value="#{login.user}" placeholder="Email" fieldSize="sm"/>
+                </div>
+                <div class="form-group">
+                    <b:inputText id="password" value="#{login.pwd}" placeholder="Password" type="password" fieldSize="sm"/>
+                </div> 
+                <div class="form-group">
+                    <b:commandButton action="#{login.validateUsernamePassword}" value="Login" look="success" icon="chevron-right" iconAlign="right"/>
+                </div>
+
+            </h:form>
+
+            <h:form rendered="#{userSession.loggedIn}" styleClass="navbar-form navbar-right ">
+                <b:commandButton action="#{login.logout()}" value="Logout" look="success"/>
+            </h:form>
+
+            <b:navbarLinks pull="right">
+                <b:navLink rendered="#{not userSession.loggedIn}" value="Register" outcome="signup"></b:navLink>
+                <b:navLink rendered="#{userSession.loggedIn}" value="Logged in as:  #{userSession.name}" outcome="#"></b:navLink>
+            </b:navbarLinks> 
+
+        </b:navBar> <!-- End of navigation -->  
+
+        <b:container>
+            <h:form styleClass="form-signin" prependId="false">
+                <h2 class="form-signin-heading">Sign up!</h2>
+
+                <b:inputText id="name" value="#{signup.name}" placeholder="Name" >
+                    <f:facet name="prepend">
+                        <b:icon name="user" />
+                    </f:facet>
+                </b:inputText>
+
+                <b:inputText id="userName" value="#{signup.username}" placeholder="Username" >
+                    <f:facet name="prepend">
+                        <b:icon name="user" />
+                    </f:facet>
+                </b:inputText>
+
+                <b:inputText id="email" value="#{signup.email}" placeholder="Email address" >
+                    <f:facet name="prepend">
+                        <b:icon name="envelope" />
+                    </f:facet>
+                </b:inputText>
+                
+                <b:inputText id="password" value="#{signup.password}" placeholder="Password" type="password">
+                    <f:facet name="prepend">
+                        <b:iconAwesome name="key" />
+                    </f:facet>
+                </b:inputText>
+                
+                <b:commandButton action="#{signup.createUser()}" look="primary btn-block" value="Sign me up!" icon="log-in" size="lg"/>
+                
+            </h:form>
+        </b:container>
+    </h:body>
+</html>
